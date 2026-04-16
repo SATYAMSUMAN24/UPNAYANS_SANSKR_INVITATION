@@ -254,11 +254,11 @@ const BookLayout = () => {
       }}>
         <CurrentPage key={currentPage}/>
 
-        {/* Nav arrows — bottom overlay */}
-        <Box sx={{
+        {/* Nav arrows — bottom overlay; on mobile becomes fixed via CSS */}
+        <Box id="page-nav-bar" sx={{
           position: 'absolute', bottom: '14px', left: 0, right: 0,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          px: '14px', zIndex: 30, pointerEvents: 'none',
+          px: '14px', zIndex: 100, pointerEvents: 'none',
         }}>
           {/* PREV */}
           <Tooltip title={currentPage > 0 ? `← ${PAGE_LABELS[currentPage - 1]}` : ''} placement="top">
@@ -269,17 +269,17 @@ const BookLayout = () => {
                 disabled={currentPage === 0 || isFlipping}
                 size="small" aria-label="Previous page"
                 sx={{
-                  width: 36, height: 36,
-                  background: 'rgba(255,248,231,0.92)',
-                  border: '1.5px solid rgba(197,137,64,0.65)',
-                  color: '#8B0000', backdropFilter: 'blur(8px)',
-                  boxShadow: '0 2px 10px rgba(197,137,64,0.22)',
+                  width: 40, height: 40,
+                  background: 'rgba(255,248,231,0.95)',
+                  border: '2px solid rgba(197,137,64,0.7)',
+                  color: '#8B0000', backdropFilter: 'blur(10px)',
+                  boxShadow: '0 4px 16px rgba(197,137,64,0.35)',
                   '&:hover:not(:disabled)': { background: 'linear-gradient(135deg,#E6B325,#C58940)', color: '#FFF8E7', transform: 'scale(1.12)' },
-                  '&:disabled': { opacity: 0.2 },
+                  '&:disabled': { opacity: 0.18 },
                   transition: 'all 0.22s ease',
                 }}
               >
-                <ChevronLeftIcon sx={{ fontSize: '1.1rem' }}/>
+                <ChevronLeftIcon sx={{ fontSize: '1.3rem' }}/>
               </IconButton>
             </span>
           </Tooltip>
@@ -310,17 +310,17 @@ const BookLayout = () => {
                 disabled={currentPage === PAGES.length - 1 || isFlipping}
                 size="small" aria-label="Next page"
                 sx={{
-                  width: 36, height: 36,
-                  background: 'rgba(255,248,231,0.92)',
-                  border: '1.5px solid rgba(197,137,64,0.65)',
-                  color: '#8B0000', backdropFilter: 'blur(8px)',
-                  boxShadow: '0 2px 10px rgba(197,137,64,0.22)',
+                  width: 40, height: 40,
+                  background: 'rgba(255,248,231,0.95)',
+                  border: '2px solid rgba(197,137,64,0.7)',
+                  color: '#8B0000', backdropFilter: 'blur(10px)',
+                  boxShadow: '0 4px 16px rgba(197,137,64,0.35)',
                   '&:hover:not(:disabled)': { background: 'linear-gradient(135deg,#E6B325,#C58940)', color: '#FFF8E7', transform: 'scale(1.12)' },
-                  '&:disabled': { opacity: 0.2 },
+                  '&:disabled': { opacity: 0.18 },
                   transition: 'all 0.22s ease',
                 }}
               >
-                <ChevronRightIcon sx={{ fontSize: '1.1rem' }}/>
+                <ChevronRightIcon sx={{ fontSize: '1.3rem' }}/>
               </IconButton>
             </span>
           </Tooltip>
