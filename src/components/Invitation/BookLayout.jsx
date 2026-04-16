@@ -253,79 +253,115 @@ const BookLayout = () => {
         boxShadow: '0 10px 44px rgba(61,26,0,0.2), 0 2px 8px rgba(197,137,64,0.14)',
       }}>
         <CurrentPage key={currentPage}/>
-
-        {/* Nav arrows — bottom overlay; on mobile becomes fixed via CSS */}
-        <Box id="page-nav-bar" sx={{
-          position: 'absolute', bottom: '14px', left: 0, right: 0,
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          px: '14px', zIndex: 100, pointerEvents: 'none',
-        }}>
-          {/* PREV */}
-          <Tooltip title={currentPage > 0 ? `← ${PAGE_LABELS[currentPage - 1]}` : ''} placement="top">
-            <span style={{ pointerEvents: 'all' }}>
-              <IconButton
-                id="btn-prev-page"
-                onClick={() => goToPage(currentPage - 1)}
-                disabled={currentPage === 0 || isFlipping}
-                size="small" aria-label="Previous page"
-                sx={{
-                  width: 40, height: 40,
-                  background: 'rgba(255,248,231,0.95)',
-                  border: '2px solid rgba(197,137,64,0.7)',
-                  color: '#8B0000', backdropFilter: 'blur(10px)',
-                  boxShadow: '0 4px 16px rgba(197,137,64,0.35)',
-                  '&:hover:not(:disabled)': { background: 'linear-gradient(135deg,#E6B325,#C58940)', color: '#FFF8E7', transform: 'scale(1.12)' },
-                  '&:disabled': { opacity: 0.18 },
-                  transition: 'all 0.22s ease',
-                }}
-              >
-                <ChevronLeftIcon sx={{ fontSize: '1.3rem' }}/>
-              </IconButton>
-            </span>
-          </Tooltip>
-
-          {/* Page label */}
-          <Paper elevation={0} sx={{
-            px: 2, py: 0.4,
-            background: 'rgba(255,248,231,0.9)',
-            border: '1px solid rgba(197,137,64,0.4)',
-            borderRadius: '50px', backdropFilter: 'blur(10px)',
-            pointerEvents: 'none',
-          }}>
-            <Typography sx={{
-              fontFamily: '"Cormorant Garamond",serif',
-              fontSize: 'clamp(0.62rem, 1.1vw, 0.82rem)',
-              fontWeight: 600, color: '#6B3A2A', letterSpacing: '0.04em',
-            }}>
-              {currentPage + 1} / {PAGES.length} — {PAGE_LABELS[currentPage]}
-            </Typography>
-          </Paper>
-
-          {/* NEXT */}
-          <Tooltip title={currentPage < PAGES.length - 1 ? `${PAGE_LABELS[currentPage + 1]} →` : ''} placement="top">
-            <span style={{ pointerEvents: 'all' }}>
-              <IconButton
-                id="btn-next-page"
-                onClick={() => goToPage(currentPage + 1)}
-                disabled={currentPage === PAGES.length - 1 || isFlipping}
-                size="small" aria-label="Next page"
-                sx={{
-                  width: 40, height: 40,
-                  background: 'rgba(255,248,231,0.95)',
-                  border: '2px solid rgba(197,137,64,0.7)',
-                  color: '#8B0000', backdropFilter: 'blur(10px)',
-                  boxShadow: '0 4px 16px rgba(197,137,64,0.35)',
-                  '&:hover:not(:disabled)': { background: 'linear-gradient(135deg,#E6B325,#C58940)', color: '#FFF8E7', transform: 'scale(1.12)' },
-                  '&:disabled': { opacity: 0.18 },
-                  transition: 'all 0.22s ease',
-                }}
-              >
-                <ChevronRightIcon sx={{ fontSize: '1.3rem' }}/>
-              </IconButton>
-            </span>
-          </Tooltip>
-        </Box>
       </Box>
+
+      {/* ── PREV arrow — fixed LEFT CENTER ── */}
+      <Box sx={{
+        position: 'fixed',
+        left: { xs: '6px', sm: '18px' },
+        top: '50%',
+        transform: 'translateY(-50%)',
+        zIndex: 300,
+      }}>
+        <Tooltip title={currentPage > 0 ? `← ${PAGE_LABELS[currentPage - 1]}` : ''} placement="right">
+          <span>
+            <IconButton
+              id="btn-prev-page"
+              onClick={() => goToPage(currentPage - 1)}
+              disabled={currentPage === 0 || isFlipping}
+              aria-label="Previous page"
+              sx={{
+                width: { xs: 48, sm: 44 },
+                height: { xs: 48, sm: 44 },
+                background: 'rgba(255,248,231,0.96)',
+                border: '2px solid rgba(197,137,64,0.75)',
+                color: '#8B0000',
+                backdropFilter: 'blur(12px)',
+                boxShadow: '0 4px 20px rgba(197,137,64,0.45), 0 1px 4px rgba(61,26,0,0.18)',
+                '&:hover:not(:disabled)': {
+                  background: 'linear-gradient(135deg,#E6B325,#C58940)',
+                  color: '#FFF8E7',
+                  transform: 'scale(1.14)',
+                  boxShadow: '0 6px 28px rgba(197,137,64,0.6)',
+                },
+                '&:disabled': { opacity: 0.16 },
+                transition: 'all 0.25s cubic-bezier(0.34,1.56,0.64,1)',
+              }}
+            >
+              <ChevronLeftIcon sx={{ fontSize: { xs: '1.6rem', sm: '1.4rem' } }}/>
+            </IconButton>
+          </span>
+        </Tooltip>
+      </Box>
+
+      {/* ── NEXT arrow — fixed RIGHT CENTER ── */}
+      <Box sx={{
+        position: 'fixed',
+        right: { xs: '6px', sm: '18px' },
+        top: '50%',
+        transform: 'translateY(-50%)',
+        zIndex: 300,
+      }}>
+        <Tooltip title={currentPage < PAGES.length - 1 ? `${PAGE_LABELS[currentPage + 1]} →` : ''} placement="left">
+          <span>
+            <IconButton
+              id="btn-next-page"
+              onClick={() => goToPage(currentPage + 1)}
+              disabled={currentPage === PAGES.length - 1 || isFlipping}
+              aria-label="Next page"
+              sx={{
+                width: { xs: 48, sm: 44 },
+                height: { xs: 48, sm: 44 },
+                background: 'rgba(255,248,231,0.96)',
+                border: '2px solid rgba(197,137,64,0.75)',
+                color: '#8B0000',
+                backdropFilter: 'blur(12px)',
+                boxShadow: '0 4px 20px rgba(197,137,64,0.45), 0 1px 4px rgba(61,26,0,0.18)',
+                '&:hover:not(:disabled)': {
+                  background: 'linear-gradient(135deg,#E6B325,#C58940)',
+                  color: '#FFF8E7',
+                  transform: 'scale(1.14)',
+                  boxShadow: '0 6px 28px rgba(197,137,64,0.6)',
+                },
+                '&:disabled': { opacity: 0.16 },
+                transition: 'all 0.25s cubic-bezier(0.34,1.56,0.64,1)',
+              }}
+            >
+              <ChevronRightIcon sx={{ fontSize: { xs: '1.6rem', sm: '1.4rem' } }}/>
+            </IconButton>
+          </span>
+        </Tooltip>
+      </Box>
+
+      {/* ── Page label pill — fixed BOTTOM CENTER ── */}
+      <Box sx={{
+        position: 'fixed',
+        bottom: { xs: 'calc(12px + env(safe-area-inset-bottom, 0px))', sm: '14px' },
+        left: '50%',
+        transform: 'translateX(-50%)',
+        zIndex: 300,
+        pointerEvents: 'none',
+      }}>
+        <Paper elevation={0} sx={{
+          px: { xs: 1.8, sm: 2 },
+          py: { xs: 0.4, sm: 0.4 },
+          background: 'rgba(255,248,231,0.92)',
+          border: '1px solid rgba(197,137,64,0.45)',
+          borderRadius: '50px',
+          backdropFilter: 'blur(12px)',
+          boxShadow: '0 2px 12px rgba(197,137,64,0.2)',
+        }}>
+          <Typography sx={{
+            fontFamily: '"Cormorant Garamond",serif',
+            fontSize: 'clamp(0.62rem, 1.8vw, 0.8rem)',
+            fontWeight: 600, color: '#6B3A2A', letterSpacing: '0.04em',
+            whiteSpace: 'nowrap',
+          }}>
+            {currentPage + 1} / {PAGES.length} — {PAGE_LABELS[currentPage]}
+          </Typography>
+        </Paper>
+      </Box>
+
 
       {/* ── Floating Action Buttons — Print / Download / Share ── */}
       <Box
