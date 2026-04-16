@@ -924,6 +924,20 @@ body {
 }
 .anim-page-in { animation: pageFlipIn 0.6s ease-out both; }
 
+/* ── Page1Guide animations ───────────────────────────────── */
+@keyframes guidePopIn {
+  from { opacity: 0; transform: scale(0.82) translateY(18px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+@keyframes guideScrollBounce {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(6px); }
+}
+@keyframes guideFlipSlide {
+  0%,100% { transform: translateX(0); }
+  50%      { transform: translateX(6px); }
+}
+
 .d-100 { animation-delay: 0.1s; }
 .d-200 { animation-delay: 0.2s; }
 .d-300 { animation-delay: 0.3s; }
@@ -968,7 +982,7 @@ body {
     max-width: calc(100vw - 16px);
   }
 
-  .page-body { padding: 14px 14px 10px; }
+  .page-body { padding: 14px 14px 56px; }
 
   .p3-names-grid { grid-template-columns: 1fr; gap: 4px; }
   .p3-and { display: none; }
@@ -995,6 +1009,13 @@ body {
   .p2-batuk-img  { width: 70px; }
   .p4-havan-img  { width: 80px; }
   .p1-ganesh-img { width: 90px; height: 115px; }
+  
+  /* Floating action buttons smaller on tablet */
+  #actions-fab-main {
+    top: 10px;
+    right: 10px;
+    gap: 8px;
+  }
 }
 
 /* ================================================================
@@ -1002,22 +1023,41 @@ body {
    ================================================================ */
 @media (max-width: 480px) {
   .a4-page-shell {
-    height: calc(100vh - 10px);
-    max-height: calc(100vh - 10px);
-    max-width: calc(100vw - 8px);
+    height: calc(100vh - 8px);
+    max-height: calc(100vh - 8px);
+    max-width: calc(100vw - 6px);
   }
 
-  .page-body { padding: 10px 10px 8px; }
+  .page-body { padding: 10px 10px 52px; }
 
-  .p1-ganesh-img { width: 70px; height: 92px; }
-  .p1-main-title { font-size: 1.4rem; }
-  .p1-title-om   { font-size: 1.8rem; }
+  .p1-ganesh-img { width: 68px; height: 88px; }
+  .p1-main-title { font-size: 1.35rem; }
+  .p1-title-om   { font-size: 1.7rem; }
+  .p1-ganesh-vandana { font-size: 0.7rem; padding: 8px 10px; }
 
   .p3-boys-img { aspect-ratio: 4/3; }
   .p4-havan-img { display: none; }
   .p2-batuk-img { display: none; }
 
-  .corner-orn   { width: 28px; height: 28px; }
+  .corner-orn   { width: 26px; height: 26px; }
+
+  /* Move FAB buttons smaller & tighter on mobile */
+  #actions-fab-main {
+    top: 8px !important;
+    right: 8px !important;
+    gap: 6px !important;
+  }
+  #actions-fab-main .MuiIconButton-root {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  /* Nav arrows smaller on mobile */
+  #btn-prev-page,
+  #btn-next-page {
+    width: 30px !important;
+    height: 30px !important;
+  }
 }
 
 /* ================================================================
@@ -1035,7 +1075,7 @@ body {
   .bg-deco     { display: none !important; }
   /* Hide all floating UI */
   [id="actions-fab-main"],
-  [id="saswat-chatbot-fab"] { display: none !important; }
+  [id="page1-guide"] { display: none !important; }
 
   .book-stage {
     width: 100% !important;
