@@ -1028,7 +1028,8 @@ body {
     max-width: calc(100vw - 6px);
   }
 
-  .page-body { padding: 10px 10px 52px; }
+  /* Extra bottom padding so flip nav arrows are never hidden by content */
+  .page-body { padding: 10px 10px 60px; }
 
   .p1-ganesh-img { width: 68px; height: 88px; }
   .p1-main-title { font-size: 1.35rem; }
@@ -1039,24 +1040,35 @@ body {
   .p4-havan-img { display: none; }
   .p2-batuk-img { display: none; }
 
-  .corner-orn   { width: 26px; height: 26px; }
+  .corner-orn { width: 26px; height: 26px; }
 
-  /* Move FAB buttons smaller & tighter on mobile */
+  /* ── FAB buttons: compact but still visible top-right ── */
   #actions-fab-main {
     top: 8px !important;
     right: 8px !important;
     gap: 6px !important;
   }
   #actions-fab-main .MuiIconButton-root {
-    width: 36px !important;
-    height: 36px !important;
+    width: 38px !important;
+    height: 38px !important;
   }
 
-  /* Nav arrows smaller on mobile */
+  /* ── Flip nav arrows: LARGER on mobile for easy tapping ── */
   #btn-prev-page,
   #btn-next-page {
-    width: 30px !important;
-    height: 30px !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-width: 2px !important;
+    box-shadow: 0 4px 16px rgba(197,137,64,0.4) !important;
+  }
+  #btn-prev-page svg,
+  #btn-next-page svg {
+    font-size: 1.4rem !important;
+  }
+
+  /* ── Guide popup: add a semi-dark backdrop on mobile ── */
+  #page1-guide {
+    background: rgba(20, 5, 0, 0.45);
   }
 }
 

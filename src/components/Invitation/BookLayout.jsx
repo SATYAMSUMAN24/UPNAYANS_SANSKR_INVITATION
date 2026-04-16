@@ -46,8 +46,11 @@ const Page1Guide = ({ onDismiss }) => {
       onClick={dismiss}
       sx={{
         position: 'fixed', inset: 0, zIndex: 8000,
-        display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
-        pb: { xs: '80px', sm: '90px' },
+        display: 'flex',
+        /* Center on mobile so it never blocks the bottom flip arrows */
+        alignItems: { xs: 'center', sm: 'flex-end' },
+        justifyContent: 'center',
+        pb: { xs: 0, sm: '88px' },
         pointerEvents: vis ? 'all' : 'none',
         opacity: vis ? 1 : 0,
         transition: 'opacity 0.35s ease',
@@ -402,14 +405,29 @@ const BookLayout = () => {
         <Page1Guide onDismiss={() => setShowGuide(false)} />
       )}
 
-      {/* Hidden print target */}
-      <Box ref={printRef} sx={{ display: 'none' }} aria-hidden="true">
+      {/*
+        Print target — must NOT be display:none.
+        Off-screen + visibility:hidden keeps it out of view but
+        react-to-print can still read all styles correctly.
+      */}
+      <div
+        ref={printRef}
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          left: '-9999px',
+          top: 0,
+          width: '794px',
+          pointerEvents: 'none',
+          zIndex: -1,
+        }}
+      >
         {PAGES.map((P, i) => (
-          <Box key={i} sx={{ pageBreakAfter: 'always', width: '794px' }}>
+          <div key={i} style={{ pageBreakAfter: 'always', width: '794px' }}>
             <P/>
-          </Box>
+          </div>
         ))}
-      </Box>
+      </div>
 
       {/* Off-screen download pages — always rendered, visibility:hidden */}
       {PAGES.map((P, i) => (
